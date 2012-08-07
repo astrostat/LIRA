@@ -1,4 +1,5 @@
 Setting up the LIRA repository
+[vlk 2012aug07, with major help from Tom A]
 
 Step 0: get a github account
 
