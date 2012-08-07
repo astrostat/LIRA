@@ -1,0 +1,11 @@
+Package: lira
+Type: Package
+Title: Low-Count Image Reconstruction and Analysis
+Version: 0.1
+Date: 2009-08-17
+Author: Alanna Connors, Nathan Stein, David van Dyk
+Maintainer: Nathan Stein <nmstein@fas.harvard.edu>
+Description: This package is designed for multi-scale non-parametric image analysis for use in high-energy astrophysics. The code implements an MCMC sampler that simultaneously fits the image and the necessary tuning/smoothing parameters in the model. The model-based approach allows for quantification of the standard error of the fitted image and can be used to evaluate the goodness-of-fit of a proposed model.
+License: GPL (>= 2)
+LazyLoad: yes
+Packaged: Fri Oct 23 22:51:21 2009; root
