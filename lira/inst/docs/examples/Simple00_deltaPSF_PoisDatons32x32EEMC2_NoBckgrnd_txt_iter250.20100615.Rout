@@ -1,0 +1,90 @@
+
+R version 2.11.1 (2010-05-31)
+Copyright (C) 2010 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> require(lira)
+Loading required package: lira
+> require(FITSio)
+Loading required package: FITSio
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called 'FITSio'
+> 
+> dataimage <- array(
++    scan("exampledata/PoisDatonsEEMC2_32x32testE.090120c.txt"),
++    c(32,32))
+Read 1024 items
+> 
+> startimage  <- array(
++   scan("exampledata/start32x32_1.00.txt"),
++   c(32,32))
+Read 1024 items
+> 
+> img <- lira(
++   obs.matrix = dataimage,
++   start.matrix= startimage,
++   out.file = "outputs/PoisDatons32x32EEMC2_NoBckgrnd.out",
++   param.file="outputs/PoisDatons32x32EEMC2_NoBckgrnd.param",
++   mcmc=TRUE, 
++   max.iter=250, thin=1,
++   burn=0,
++   alpha.init=c(3,4,5,6,7))
+
+Code will run in posterior sampling mode.
+
+A scale parameter will be fit to the bkg model.
+
+The total number of Gibbs draws is 250, every 1th draws will be saved.
+
+The model will be fit using the Multi Scale Prior.
+
+The data matrix is 32 by 32.
+
+The data file should contain a  2^5 by 2^5 matrix of counts.
+
+Starting Values for the smoothing parameter (alpha):
+Aggregation Level:  0,   alpha: 3 (Full Data)
+Aggregation Level:  1,   alpha: 4
+Aggregation Level:  2,   alpha: 5
+Aggregation Level:  3,   alpha: 6
+Aggregation Level:  4,   alpha: 7  (In the 2x2 table)
+
+The prior distribution on the total count from the multiscale component is
+Gamma(1.000000, 0.050000).
+
+The hyper-prior smoothing parameter (kappa 2) is 1000.
+
+> 
+> pdf("outputs/PoisDatonsEEMC2_32x32testE_NoBckgrnd_images.pdf", width=8, height=4.25)
+> par(mfrow=c(1,2))
+> initial.image <- array(
++   scan("exampledata/PoisDatonsEEMC2_32x32testE.090120c.txt"), 
++   c(32,32))
+Read 1024 items
+> 
+> image(initial.image, xaxt="n", yaxt="n", main="Observed Data")
+> image(img$final, xaxt="n", yaxt="n", main="Final")
+> dev.off()
+null device 
+          1 
+> 
+> proc.time()
+   user  system elapsed 
+ 39.568   0.410  44.715 

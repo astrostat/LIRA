@@ -1,0 +1,10 @@
+
+ 1. Changing directory names:
+
+drwxr-xr-x  637 avconnors  admin  21658 Jul 24 10:45 postprocessing --> RPlotsUtils
+drwxr-xr-x  101 avconnors  admin   3434 Feb  9  2011 outputs        --> Routputs
+drwxr-xr-x   52 avconnors  admin   1768 Feb  9  2011 exampledata    --> exampledata
+drwxr-xr-x   81 avconnors  admin   2754 Nov 11  2010 pythontwiddles --> PyProcUtils
+NEW --->                                                                ProcessedFiles
+
+
