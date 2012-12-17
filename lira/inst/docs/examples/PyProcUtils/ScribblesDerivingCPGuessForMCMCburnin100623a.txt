@@ -1,0 +1,38 @@
+#
+# Quicko derivation of a simple change-point algorithm or two,
+# meant to make a first guess at an MCMC 'burn-in' number.
+# 
+
+#Try linear piece plus constant:
+$$\mu(x) = -mX + b for x < x_{CP} $$
+$$ \mu(x) = a for x >= X_{CP}$$
+
+SO:
+$$ \Cost == \Sum_{i=1}^{N} (y_i - \mu_i)^2 $$
+$$ \Cost == \Sum_{i=1}^{N} (y_i^2 - 2 y_i \mu_i +\mu_i^2 ) $$
+
+Before the changepoint,
+$$\Cost == \Sum_{i=1}^{CP} (y_i^2 - 2 y_i*b -2y_i*b*i +b^2 -2mbi + m^2i^2)$$
+Or,
+$$\Cost == CP*(<y_i^2> - 2 <y_i>*b -2*b*<y_i*i> +b^2 -2mb<i> + m^2<i^2>)$$
+
+After and including the change-point:
+$$\Cost == \Sum_{i=CP}^N (y_i^2 - 2 y_i*a + a^2)$$
+Or,
+$$\Cost == (N-CP)*(<y_i^2> - 2*a*<y_i> + a^2)
+
+Since
+$$ a == b - m*CP,$$
+And
+$$ a == <y_i> for i\ge CP,$$
+Substituting in for m or b gives:
+$$ m*CP = b - <y>_{>CP};  b = <y>_{>CP} + m*CP.$$
+
+Hence, we can substitute for m or b in the 1st cost equation.
+
+
+The procedure will be:
+1) Find a, b, and m by regression and constraints.
+2) Given these, find an expression for the cost as a function of CP.
+3) Step through CP,looking for the minimum cost.
+This will be the 'burn-in' guess.

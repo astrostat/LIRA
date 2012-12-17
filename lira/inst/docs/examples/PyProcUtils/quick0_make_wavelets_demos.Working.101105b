@@ -1,0 +1,133 @@
+#--------Initialize packages: ------------------------------
+from numpy import *
+import scipy as s
+import pyfits
+
+#-------Define what we're doing:----------------------------
+
+def Quick0MexicanHatAtom( xcovariate ):
+
+    # This simple popular wavelet 'mother' is the 2nd derivative of a Gaussian.
+    # Notice that this is ONLY the basic shape; to geth the full wavelets, you
+    # need translation/shifting: xcovariate= (t-u)/s; normprime = norm*sqrt(scale)
+    
+    # Also, we are assuming that full-range for MH is -4.,4.
+    # So we need to re-scale this.
+
+    if len(xcovariate) <= 0 :
+        return 0.
+    else:
+        xprime = xcovariate
+
+    exponent = xprime*xprime
+    if len(xcovariate) == 1 :
+        # This is the formula for the 2nd derivative. If there is only one bin, use this:
+        D2derivs = 1. - exponent
+        return  D2derivs*exp(-exponent/2.)
+    else:
+        # Use the 1st deriv to integrate over the bin:
+        Del = (xprime[-1] - xprime[0])/float(len(xcovariate))
+        x0, x1 = xcovariate-Del/2., xcovariate+Del/2.
+        exp0, exp1 = -x0*x0/2., -x1*x1/2.
+        D1deriv0, D1deriv1 = -x0, -x1
+        result = -D1deriv1*exp(exp1) + D1deriv0*exp(exp0)   # Inelegant!!!
+        return result/Del
+
+#-------Define what we're doing:----------------------------
+
+def Quick00MexicanHatAtom( xcovariate ):
+
+    # This simple popular wavelet 'mother' is the 2nd derivative of a Gaussian.
+    # Notice that this is ONLY the basic shape; to geth the full wavelets, you
+    # need translation/shifting: xcovariate= (t-u)/s; normprime = norm*sqrt(scale)
+    
+    # Also, we are assuming that full-range for MH is -4.,4.
+    # So we need to re-scale this.
+
+    if len(xcovariate) <= 0 :
+        return 0.
+    else:
+        xprime = xcovariate
+
+    exponent = xprime*xprime
+    if len(xcovariate) >= 1 :
+        # This is the formula for the 2nd derivative. If there is only one bin, use this:
+        D2derivs = 1. - exponent
+        result = D2derivs*exp(-exponent/2.)
+        return  result
+
+#-------Define what we're doing:----------------------------
+
+def Quick0MexicanHat( tcovariate, scale=1., shift = 0.):
+    sys_small = 1.e-72
+
+    if abs(scale) > sys_small :		# Check for zeros
+        xcovariate = (tcovariate - shift)/scale # Not Sure This is OK!!!!
+        result = Quick0MexicanHatAtom(xcovariate)/sqrt(scale)
+        return result
+    else:
+        return zeros(tcovariate.shape)
+
+#-------Define what we're doing:----------------------------
+
+def Quick0MultiresMexicanHat(realcovariate):
+
+    # Handy constant:
+    powersof2_tuple = \
+    (1, 2, 4, 8, 16, 32, 64, 128, 256,  512,  1024, \
+     2048, 4096, 8192, 16384, 32768, 65536, 131072, \
+     262144, 524288, 1048576)
+    ln_2 = log(2.)
+
+    # Get spacing -- real input, and next power-of-two:
+    len_real = len(realcovariate)
+
+    # Error checking:
+    if len_real == 0:
+        print 'Quick0MultiresMexicanHat Fatal Input Error.'
+        print '  Input covariate must have length > 0, but was given: ', realcovariate
+        raise TypeError
+
+    if len_real > 1048576 :
+        JJ = int(log(len_real)/ln_2)
+    else:
+        JJ = 0
+        for j in range( len(powersof2_tuple) ):
+            if JJ == 0 and len_real <= powersof2_tuple[j] :
+                JJ = j + 1
+        #end for
+    #end-if
+
+    # Now work through the different scales:
+    # For the Multi-Res, we will use JJ scales.
+    # So the output will be an array of size JJ X len_real:
+    result = zeros((JJ,len_real))
+    # re-scale realcov to match multi-res format:
+    center = (realcovariate[-1] + realcovariate[0])/2.
+    length = (realcovariate[-1] - realcovariate[0])/2.
+    rescl_cov = ( realcovariate - center ) / length
+    rescl_cov = rescl_cov*2.  # Special for Mexican Hat
+    
+
+    # Now do each scale, from the finest to the broadest:
+    for jlevel in range(0, JJ ):
+        jth_resol_len = powersof2_tuple[jlevel]
+        num_vecs = int(len_real/jth_resol_len)
+        realscale = float( powersof2_tuple[JJ-jlevel] )
+        #print '\n DEBUG: jlevel: ',jlevel,' resol_len:',jth_resol_len,' num_vecs: ', num_vecs
+        # Fill up this row:
+        for k in range(num_vecs) :
+            tempcov = rescl_cov[ k*jth_resol_len : (k+1)*jth_resol_len ]
+            realshift = (tempcov[0] + tempcov[-1])/2.
+            #CHECK realvalue = Quick0MexicanHatAtom( tempcov)
+            #realvalue = Quick0MexicanHat( tempcov, shift=realshift, scale=(1./realscale))/sqrt(realscale)
+            realvalue = Quick0MexicanHat( rescl_cov, shift=realshift, scale=(1./realscale))/sqrt(realscale)
+            #result[jlevel][k*jth_resol_len:(k+1)*jth_resol_len] = realvalue
+            result[jlevel] += realvalue
+            #print 'Cov: ',k*' ',tempcov
+            #print 'Val: ',k*' ',realvalue
+            #print result[jlevel]
+        #end-for-each-k-shift
+    #end-for-each-jlevel
+
+    return result

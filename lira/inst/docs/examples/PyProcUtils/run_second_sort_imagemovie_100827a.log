@@ -1,0 +1,77 @@
+ File names:
+('intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.chopmovies.fits.chopmovies.fits', 'intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.chopmovies.fits.sort2.fits', 'intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.chopmovies.fits.wrongconf.fits', 'intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.chopmovies.fits.10perc.conf.fits', 'exampledata/FlatUnityExposure32sq.fits') 
+
+AT run_second_sort_imagemovie:  Limits requested:  [0.10000000000000001, 0.5, 0.90000000000000002] 
+
+ File names:
+('intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.chopmovies.fits', 'intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.sort2.fits', 'intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.wrongconf.fits', 'intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.10perc.conf.fits', 'exampledata/FlatUnityExposure32sq.fits') 
+
+AT run_second_sort_imagemovie:  Limits requested:  [0.10000000000000001, 0.5, 0.90000000000000002] 
+
+SIMPLE  =                    T / conforms to FITS standard                      
+BITPIX  =                  -64 / array data type                                
+NAXIS   =                    3 / number of array dimensions                     
+NAXIS1  =                   32                                                  
+NAXIS2  =                   32                                                  
+NAXIS3  =                  720                                                  
+EXTEND  =                    T                                                  
+0.0
+ File names:
+('intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.chopmovies.fits', 'intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.sort2.fits', 'intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.wrongconf.fits', 'intermediatefiles/PoisDatons32x32EEMC2vsNullModel_Strt_0_1.10perc.conf.fits', '../exampledata/FlatUnityExposure32sq.fits') 
+
+AT run_second_sort_imagemovie:  Limits requested:  [0.10000000000000001, 0.5, 0.90000000000000002] 
+
+SIMPLE  =                    T / conforms to FITS standard                      
+BITPIX  =                  -64 / array data type                                
+NAXIS   =                    3 / number of array dimensions                     
+NAXIS1  =                   32                                                  
+NAXIS2  =                   32                                                  
+NAXIS3  =                  720                                                  
+EXTEND  =                    T                                                  
+0.0
+SIMPLE  =                    T / conforms to FITS standard                      
+BITPIX  =                  -64 / array data type                                
+NAXIS   =                    2 / number of array dimensions                     
+NAXIS1  =                   32                                                  
+NAXIS2  =                   32                                                  
+EXTEND  =                    T                                                  
+(32, 32)
+1.0
+AT run_second_sort_imagemovie:  Calling ThirdSimpleImageConfBands: 
+ 
+ 
+
+Shape of input Sorted MC Movie Images:  (720, 32, 32)
+ For ll,lin= 0 0  and confvalue= 0.1  Totimages*confvalue is: 72.0
+ Corresponds to counts:  106.1545
+ For ll,lin= 1 1  and confvalue= 0.5  Totimages*confvalue is: 360.0
+ Corresponds to counts:  123.007775
+ For ll,lin= 2 2  and confvalue= 0.9  Totimages*confvalue is: 648.0
+ Corresponds to counts:  142.696261
+At lower limit:, lin,lout is  0 0
+ 
+ 
+
+At average piece:, lin,lout is  1 1
+ 
+
+ 
+ 
+
+At upper limit:, lin,lout is  2 2
+ 
+ 
+
+card is too long, comment is truncated.
+Transfer_imageWCS_to_newheader error. CTYPE1 not in old header.
+Transfer_imageWCS_to_newheader error. CRPIX1 not in old header.
+Transfer_imageWCS_to_newheader error. CRVAL1 not in old header.
+Transfer_imageWCS_to_newheader error. CDELT1 not in old header.
+Transfer_imageWCS_to_newheader error. CUNIT1 not in old header.
+Transfer_imageWCS_to_newheader error. CTYPE2 not in old header.
+Transfer_imageWCS_to_newheader error. CRPIX2 not in old header.
+Transfer_imageWCS_to_newheader error. CRVAL2 not in old header.
+Transfer_imageWCS_to_newheader error. CDELT2 not in old header.
+Transfer_imageWCS_to_newheader error. CUNIT2 not in old header.
+Transfer_imageWCS_to_newheader error. CROTA2 not in old header.
+card is too long, comment is truncated.

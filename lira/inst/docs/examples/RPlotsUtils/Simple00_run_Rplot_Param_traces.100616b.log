@@ -1,0 +1,2299 @@
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileAutoCorPar = '/PoisDatons32x32EEMC2_NoBckgrnd.autocor'
+> 
+> 
+> AutoCorPar <- read.table(infileAutoCorPar, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileAutoCorPar = '../postprocessing/PoisDatons32x32EEMC2_NoBckgrnd.autocor'
+> 
+> 
+> AutoCorPar <- read.table(infileAutoCorPar, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> AutocorIter <- AutoCorPar[[1]]
+> AutocorLogProb <- AutoCorPar[[2]]
+> AutocorProbStep <- AutoCorPar[[3]]
+> AutocorSpinRow <- AutoCorPar[[4]]
+> AutocorSpinCol <- AutoCorPar[[5]]
+> AutocorHyp0 <- AutoCorPar[[6]]
+> AutocorHyp1 <- AutoCorPar[[7]]
+> AutocorHyp2 <- AutoCorPar[[8]]
+> AutocorHyp3 <- AutoCorPar[[9]]
+> AutocorHyp4 <- AutoCorPar[[10]]
+> IExpMSCnts <- AutoCorPar[[11]]
+> 
+> 
+> xrangeAutocor <- numeric(2)
+> yrangeAutocor <- numeric(2)
+> xrangeAutocor[1] = 0.
+> xrangeAutocor[2] = 0.4
+> yrangeAutocor[1] = 0.
+> yrangeAutocor[2] = 0.4
+> 
+> 
+> rangeLog10MSCnts <- numeric(2)
+> rangeLog10MSCnts[1] = 2.2
+> rangeLog10MSCnts[2] = 3.4
+> 
+> ## No Background for this one:
+> #rangeLog10BkgScale <- numeric(2)
+> #rangeLog10BkgScale[1] = 0.38
+> #rangeLog10BkgScale[2] = 0.42
+> 
+> rangeLog10Prob <- numeric(2)
+> rangeLog10Prob[1] = -800.
+> rangeLog10Prob[2] = -600.
+> 
+> ## Each trace or 'time-series' (statistics jargon) plot
+> ##
+> 
+> pdf("AutocorLogProb.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((AutocorLogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab='Autocor of Log10 Post Prob',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileAutoCorPar = '../postprocessing/PoisDatons32x32EEMC2_NoBckgrnd.autocor'
+> 
+> 
+> AutoCorPar <- read.table(infileAutoCorPar, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> AutocorIter <- AutoCorPar[[1]]
+> AutocorLogProb <- AutoCorPar[[2]]
+> AutocorProbStep <- AutoCorPar[[3]]
+> AutocorSpinRow <- AutoCorPar[[4]]
+> AutocorSpinCol <- AutoCorPar[[5]]
+> AutocorHyp0 <- AutoCorPar[[6]]
+> AutocorHyp1 <- AutoCorPar[[7]]
+> AutocorHyp2 <- AutoCorPar[[8]]
+> AutocorHyp3 <- AutoCorPar[[9]]
+> AutocorHyp4 <- AutoCorPar[[10]]
+> IExpMSCnts <- AutoCorPar[[11]]
+> 
+> 
+> xrangeAutocor <- numeric(2)
+> yrangeAutocor <- numeric(2)
+> xrangeAutocor[1] = 0.
+> xrangeAutocor[2] = 0.4
+> yrangeAutocor[1] = 0.
+> yrangeAutocor[2] = 0.4
+> 
+> 
+> rangeLog10MSCnts <- numeric(2)
+> rangeLog10MSCnts[1] = 2.2
+> rangeLog10MSCnts[2] = 3.4
+> 
+> ## No Background for this one:
+> #rangeLog10BkgScale <- numeric(2)
+> #rangeLog10BkgScale[1] = 0.38
+> #rangeLog10BkgScale[2] = 0.42
+> 
+> rangeLog10Prob <- numeric(2)
+> rangeLog10Prob[1] = -800.
+> rangeLog10Prob[2] = -600.
+> 
+> ## Each trace or 'time-series' (statistics jargon) plot
+> ##
+> 
+> ## From glitch this one is currently inf so commented out:
+> #pdf("AutocorLogProb.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> #
+> #log10euler = log10(exp(1.000000000000))
+> #
+> #plot((AutocorLogProb*log10euler),type="o",
+> #xlab='Iteration Number',
+> #ylab='Autocor of Log10 Post Prob',
+> #pch='.',
+> #cex.main=1.4,cex.lab=1.4)
+> #
+> #dev.off()
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorHyp0.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(AutocorHyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Autocor of Hyper-Param 0',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorHyp1.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(AutocorHyp1,type="o",
++ xlab='Iteration Number',
++ ylab='Autocor of Hyper-Param 1',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorHyp2.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(AutocorHyp2,type="o",
++ xlab='Iteration Number',
++ ylab='Autocor of Hyper-Param 2',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorHyp3.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(AutocorHyp3,type="o",
++ xlab='Iteration Number',
++ ylab='Autocor of Hyper-Param 3',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorHyp4.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(AutocorHyp4,type="o",
++ xlab='Iteration Number',
++ ylab='Autocor of Hyper-Param 4',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorMSCntsTimeTrace.pdf", onefile=F, height=4.3, width=4.3 )
+> 
+> plot(log10(AutocorExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='AutoCor of MS Counts',
++ main='Data (.)',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileAutoCorPar = '../postprocessing/PoisDatons32x32EEMC2_NoBckgrnd.autocor'
+> 
+> 
+> AutoCorPar <- read.table(infileAutoCorPar, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> AutocorIter <- AutoCorPar[[1]]
+> AutocorLogProb <- AutoCorPar[[2]]
+> AutocorProbStep <- AutoCorPar[[3]]
+> AutocorSpinRow <- AutoCorPar[[4]]
+> AutocorSpinCol <- AutoCorPar[[5]]
+> AutocorHyp0 <- AutoCorPar[[6]]
+> AutocorHyp1 <- AutoCorPar[[7]]
+> AutocorHyp2 <- AutoCorPar[[8]]
+> AutocorHyp3 <- AutoCorPar[[9]]
+> AutocorHyp4 <- AutoCorPar[[10]]
+> AutocorExpMSCnts <- AutoCorPar[[11]]
+> 
+> 
+> xrangeAutocor <- numeric(2)
+> yrangeAutocor <- numeric(2)
+> xrangeAutocor[1] = 0.
+> xrangeAutocor[2] = 0.4
+> yrangeAutocor[1] = 0.
+> yrangeAutocor[2] = 0.4
+> 
+> 
+> rangeLog10MSCnts <- numeric(2)
+> rangeLog10MSCnts[1] = 2.2
+> rangeLog10MSCnts[2] = 3.4
+> 
+> ## No Background for this one:
+> #rangeLog10BkgScale <- numeric(2)
+> #rangeLog10BkgScale[1] = 0.38
+> #rangeLog10BkgScale[2] = 0.42
+> 
+> rangeLog10Prob <- numeric(2)
+> rangeLog10Prob[1] = -800.
+> rangeLog10Prob[2] = -600.
+> 
+> ## Each trace or 'time-series' (statistics jargon) plot
+> ##
+> 
+> ## From glitch this one is currently inf so commented out:
+> #pdf("AutocorLogProb.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> #
+> #log10euler = log10(exp(1.000000000000))
+> #
+> #plot((AutocorLogProb*log10euler),type="o",
+> #xlab='Iteration Number',
+> #ylab='Autocor of Log10 Post Prob',
+> #pch='.',
+> #cex.main=1.4,cex.lab=1.4)
+> #
+> #dev.off()
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorHyp0.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(AutocorHyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Autocor of Hyper-Param 0',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorHyp1.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(AutocorHyp1,type="o",
++ xlab='Iteration Number',
++ ylab='Autocor of Hyper-Param 1',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorHyp2.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(AutocorHyp2,type="o",
++ xlab='Iteration Number',
++ ylab='Autocor of Hyper-Param 2',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorHyp3.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(AutocorHyp3,type="o",
++ xlab='Iteration Number',
++ ylab='Autocor of Hyper-Param 3',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorHyp4.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(AutocorHyp4,type="o",
++ xlab='Iteration Number',
++ ylab='Autocor of Hyper-Param 4',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("AutocorMSCntsTimeTrace.pdf", onefile=F, height=4.3, width=4.3 )
+> 
+> plot(log10(AutocorExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='AutoCor of MS Counts',
++ main='Data (.)',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> 
+> dev.off()
+null device 
+          1 
+> 
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileImgDat1 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat1 <- read.table(infileImgDat1, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I1Iter <- ImgDat1[[1]]
+> I1LogProb <- ImgDat1[[2]]
+> I1ProbStep <- ImgDat1[[3]]
+> I1SpinRow <- ImgDat1[[4]]
+> I1SpinCol <- ImgDat1[[5]]
+> I1Hyp0 <- ImgDat1[[6]]
+> I1Hyp1 <- ImgDat1[[7]]
+> I1Hyp2 <- ImgDat1[[8]]
+> I1Hyp3 <- ImgDat1[[9]]
+> I1Hyp4 <- ImgDat1[[10]]
+> I1ExpMSCnts <- ImgDat1[[11]]
+> 
+> 
+> infileImgDat2 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat2 <- read.table(infileImgDat2, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I2Iter <- ImgDat2[[1]]
+> I2LogProb <- ImgDat2[[2]]
+> I2ProbStep <- ImgDat2[[3]]
+> I2SpinRow <- ImgDat2[[4]]
+> I2SpinCol <- ImgDat2[[5]]
+> I2Hyp0 <- ImgDat2[[6]]
+> I2Hyp1 <- ImgDat2[[7]]
+> I2Hyp2 <- ImgDat2[[8]]
+> I2Hyp3 <- ImgDat2[[9]]
+> I2Hyp4 <- ImgDat2[[10]]
+> I2ExpMSCnts <- ImgDat2[[11]]
+> 
+> 
+> xrangeImg <- numeric(2)
+> yrangeImg <- numeric(2)
+> xrangeImg[1] = 0.
+> xrangeImg[2] = 0.4
+> yrangeImg[1] = 0.
+> yrangeImg[2] = 0.4
+> 
+> 
+> rangeLog10MSCnts <- numeric(2)
+> rangeLog10MSCnts[1] = 2.2
+> rangeLog10MSCnts[2] = 3.4
+> 
+> ## No Background for this one:
+> #rangeLog10BkgScale <- numeric(2)
+> #rangeLog10BkgScale[1] = 0.38
+> #rangeLog10BkgScale[2] = 0.42
+> 
+> rangeLog10Prob <- numeric(2)
+> rangeLog10Prob[1] = -800.
+> rangeLog10Prob[2] = -600.
+> 
+> ## Each trace or 'time-series' (statistics jargon) plot
+> ##
+> 
+> pdf("ImgLogProb.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((I1LogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab=' Log10 Post Prob',
++ ylim=rangeLog10Prob,
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines((I2LogProb*log10euler),color='red')
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp0.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 0',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp0,color='red')
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp1.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp1,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 1',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp1,color='red')
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp2.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp2,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 2',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp2,color='red')
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp3.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(I1Hyp3,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 3',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp3,color='red')
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp4.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(I1Hyp4,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 4',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp4,color='red')
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgMSCntsTimeTrace.pdf", onefile=F, height=4.3, width=4.3 )
+> 
+> plot(log10(I1ExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='Log10(Expected MS Counts)',
++ main='Data (.)',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(log10(I2ExpMSCnts),color=red)
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileImgDat1 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat1 <- read.table(infileImgDat1, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I1Iter <- ImgDat1[[1]]
+> I1LogProb <- ImgDat1[[2]]
+> I1ProbStep <- ImgDat1[[3]]
+> I1SpinRow <- ImgDat1[[4]]
+> I1SpinCol <- ImgDat1[[5]]
+> I1Hyp0 <- ImgDat1[[6]]
+> I1Hyp1 <- ImgDat1[[7]]
+> I1Hyp2 <- ImgDat1[[8]]
+> I1Hyp3 <- ImgDat1[[9]]
+> I1Hyp4 <- ImgDat1[[10]]
+> I1ExpMSCnts <- ImgDat1[[11]]
+> 
+> 
+> infileImgDat2 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat2 <- read.table(infileImgDat2, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I2Iter <- ImgDat2[[1]]
+> I2LogProb <- ImgDat2[[2]]
+> I2ProbStep <- ImgDat2[[3]]
+> I2SpinRow <- ImgDat2[[4]]
+> I2SpinCol <- ImgDat2[[5]]
+> I2Hyp0 <- ImgDat2[[6]]
+> I2Hyp1 <- ImgDat2[[7]]
+> I2Hyp2 <- ImgDat2[[8]]
+> I2Hyp3 <- ImgDat2[[9]]
+> I2Hyp4 <- ImgDat2[[10]]
+> I2ExpMSCnts <- ImgDat2[[11]]
+> 
+> 
+> xrangeImg <- numeric(2)
+> yrangeImg <- numeric(2)
+> xrangeImg[1] = 0.
+> xrangeImg[2] = 0.4
+> yrangeImg[1] = 0.
+> yrangeImg[2] = 0.4
+> 
+> 
+> rangeLog10MSCnts <- numeric(2)
+> rangeLog10MSCnts[1] = 2.2
+> rangeLog10MSCnts[2] = 3.4
+> 
+> ## No Background for this one:
+> #rangeLog10BkgScale <- numeric(2)
+> #rangeLog10BkgScale[1] = 0.38
+> #rangeLog10BkgScale[2] = 0.42
+> 
+> rangeLog10Prob <- numeric(2)
+> rangeLog10Prob[1] = -800.
+> rangeLog10Prob[2] = -600.
+> 
+> ## Each trace or 'time-series' (statistics jargon) plot
+> ##
+> 
+> pdf("ImgLogProb.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((I1LogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab=' Log10 Post Prob',
++ ylim=rangeLog10Prob,
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines((I2LogProb*log10euler),color="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp0.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 0',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp0,color="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp1.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp1,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 1',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp1,color="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp2.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp2,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 2',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp2,color="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp3.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(I1Hyp3,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 3',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp3,color="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp4.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(I1Hyp4,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 4',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp4,color="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgMSCntsTimeTrace.pdf", onefile=F, height=4.3, width=4.3 )
+> 
+> plot(log10(I1ExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='Log10(Expected MS Counts)',
++ main='Data (.)',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(log10(I2ExpMSCnts),color="red")
+> dev.off()
+null device 
+          1 
+> 
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileImgDat1 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat1 <- read.table(infileImgDat1, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I1Iter <- ImgDat1[[1]]
+> I1LogProb <- ImgDat1[[2]]
+> I1ProbStep <- ImgDat1[[3]]
+> I1SpinRow <- ImgDat1[[4]]
+> I1SpinCol <- ImgDat1[[5]]
+> I1Hyp0 <- ImgDat1[[6]]
+> I1Hyp1 <- ImgDat1[[7]]
+> I1Hyp2 <- ImgDat1[[8]]
+> I1Hyp3 <- ImgDat1[[9]]
+> I1Hyp4 <- ImgDat1[[10]]
+> I1ExpMSCnts <- ImgDat1[[11]]
+> 
+> 
+> infileImgDat2 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat2 <- read.table(infileImgDat2, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I2Iter <- ImgDat2[[1]]
+> I2LogProb <- ImgDat2[[2]]
+> I2ProbStep <- ImgDat2[[3]]
+> I2SpinRow <- ImgDat2[[4]]
+> I2SpinCol <- ImgDat2[[5]]
+> I2Hyp0 <- ImgDat2[[6]]
+> I2Hyp1 <- ImgDat2[[7]]
+> I2Hyp2 <- ImgDat2[[8]]
+> I2Hyp3 <- ImgDat2[[9]]
+> I2Hyp4 <- ImgDat2[[10]]
+> I2ExpMSCnts <- ImgDat2[[11]]
+> 
+> 
+> xrangeImg <- numeric(2)
+> yrangeImg <- numeric(2)
+> xrangeImg[1] = 0.
+> xrangeImg[2] = 0.4
+> yrangeImg[1] = 0.
+> yrangeImg[2] = 0.4
+> 
+> 
+> rangeLog10MSCnts <- numeric(2)
+> rangeLog10MSCnts[1] = 2.2
+> rangeLog10MSCnts[2] = 3.4
+> 
+> ## No Background for this one:
+> #rangeLog10BkgScale <- numeric(2)
+> #rangeLog10BkgScale[1] = 0.38
+> #rangeLog10BkgScale[2] = 0.42
+> 
+> rangeLog10Prob <- numeric(2)
+> rangeLog10Prob[1] = -800.
+> rangeLog10Prob[2] = -600.
+> 
+> ## Each trace or 'time-series' (statistics jargon) plot
+> ##
+> 
+> pdf("ImgLogProb.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((I1LogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab=' Log10 Post Prob',
++ ylim=rangeLog10Prob,
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines((I2LogProb*log10euler),col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp0.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 0',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp0,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp1.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp1,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 1',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp1,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp2.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp2,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 2',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp2,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp3.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(I1Hyp3,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 3',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp3,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp4.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(I1Hyp4,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 4',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp4,col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgMSCntsTimeTrace.pdf", onefile=F, height=4.3, width=4.3 )
+> 
+> plot(log10(I1ExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='Log10(Expected MS Counts)',
++ main='Data (.)',
++ pch='.',
++ cex.main=1.4,cex.lab=1.4)
+> lines(log10(I2ExpMSCnts),col="red")
+> dev.off()
+null device 
+          1 
+> 
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileImgDat1 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat1 <- read.table(infileImgDat1, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I1Iter <- ImgDat1[[1]]
+> I1LogProb <- ImgDat1[[2]]
+> I1ProbStep <- ImgDat1[[3]]
+> I1SpinRow <- ImgDat1[[4]]
+> I1SpinCol <- ImgDat1[[5]]
+> I1Hyp0 <- ImgDat1[[6]]
+> I1Hyp1 <- ImgDat1[[7]]
+> I1Hyp2 <- ImgDat1[[8]]
+> I1Hyp3 <- ImgDat1[[9]]
+> I1Hyp4 <- ImgDat1[[10]]
+> I1ExpMSCnts <- ImgDat1[[11]]
+> 
+> 
+> infileImgDat2 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat2 <- read.table(infileImgDat2, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I2Iter <- ImgDat2[[1]]
+> I2LogProb <- ImgDat2[[2]]
+> I2ProbStep <- ImgDat2[[3]]
+> I2SpinRow <- ImgDat2[[4]]
+> I2SpinCol <- ImgDat2[[5]]
+> I2Hyp0 <- ImgDat2[[6]]
+> I2Hyp1 <- ImgDat2[[7]]
+> I2Hyp2 <- ImgDat2[[8]]
+> I2Hyp3 <- ImgDat2[[9]]
+> I2Hyp4 <- ImgDat2[[10]]
+> I2ExpMSCnts <- ImgDat2[[11]]
+> 
+> 
+> xrangeImg <- numeric(2)
+> yrangeImg <- numeric(2)
+> xrangeImg[1] = 0.
+> xrangeImg[2] = 0.4
+> yrangeImg[1] = 0.
+> yrangeImg[2] = 0.4
+> 
+> 
+> rangeLog10MSCnts <- numeric(2)
+> rangeLog10MSCnts[1] = 2.2
+> rangeLog10MSCnts[2] = 3.4
+> 
+> ## No Background for this one:
+> #rangeLog10BkgScale <- numeric(2)
+> #rangeLog10BkgScale[1] = 0.38
+> #rangeLog10BkgScale[2] = 0.42
+> 
+> rangeLog10Prob <- numeric(2)
+> rangeLog10Prob[1] = -800.
+> rangeLog10Prob[2] = -600.
+> 
+> ## Each trace or 'time-series' (statistics jargon) plot
+> ##
+> 
+> pdf("ImgLogProb.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((I1LogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab=' Log10 Post Prob',
++ ylim=rangeLog10Prob,
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines((I2LogProb*log10euler),col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp0.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 0',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp0,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp1.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp1,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 1',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp1,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp2.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp2,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 2',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp2,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp3.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(I1Hyp3,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 3',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp3,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp4.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(I1Hyp4,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 4',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp4,col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgMSCntsTimeTrace.pdf", onefile=F, height=4.3, width=4.3 )
+> 
+> plot(log10(I1ExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='Log10(Expected MS Counts)',
++ main='Data (.)',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(log10(I2ExpMSCnts),col="red")
+> dev.off()
+null device 
+          1 
+> 
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileImgDat1 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat1 <- read.table(infileImgDat1, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I1Iter <- ImgDat1[[1]]
+> I1LogProb <- ImgDat1[[2]]
+> I1ProbStep <- ImgDat1[[3]]
+> I1SpinRow <- ImgDat1[[4]]
+> I1SpinCol <- ImgDat1[[5]]
+> I1Hyp0 <- ImgDat1[[6]]
+> I1Hyp1 <- ImgDat1[[7]]
+> I1Hyp2 <- ImgDat1[[8]]
+> I1Hyp3 <- ImgDat1[[9]]
+> I1Hyp4 <- ImgDat1[[10]]
+> I1ExpMSCnts <- ImgDat1[[11]]
+> 
+> 
+> infileImgDat2 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd_2.param'
+> 
+> ImgDat2 <- read.table(infileImgDat2, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I2Iter <- ImgDat2[[1]]
+> I2LogProb <- ImgDat2[[2]]
+> I2ProbStep <- ImgDat2[[3]]
+> I2SpinRow <- ImgDat2[[4]]
+> I2SpinCol <- ImgDat2[[5]]
+> I2Hyp0 <- ImgDat2[[6]]
+> I2Hyp1 <- ImgDat2[[7]]
+> I2Hyp2 <- ImgDat2[[8]]
+> I2Hyp3 <- ImgDat2[[9]]
+> I2Hyp4 <- ImgDat2[[10]]
+> I2ExpMSCnts <- ImgDat2[[11]]
+> 
+> 
+> xrangeImg <- numeric(2)
+> yrangeImg <- numeric(2)
+> xrangeImg[1] = 0.
+> xrangeImg[2] = 0.4
+> yrangeImg[1] = 0.
+> yrangeImg[2] = 0.4
+> 
+> 
+> rangeLog10MSCnts <- numeric(2)
+> rangeLog10MSCnts[1] = 2.2
+> rangeLog10MSCnts[2] = 3.4
+> 
+> ## No Background for this one:
+> #rangeLog10BkgScale <- numeric(2)
+> #rangeLog10BkgScale[1] = 0.38
+> #rangeLog10BkgScale[2] = 0.42
+> 
+> rangeLog10Prob <- numeric(2)
+> rangeLog10Prob[1] = -800.
+> rangeLog10Prob[2] = -600.
+> 
+> ## Each trace or 'time-series' (statistics jargon) plot
+> ##
+> 
+> pdf("ImgLogProb.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((I1LogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab=' Log10 Post Prob',
++ ylim=rangeLog10Prob,
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines((I2LogProb*log10euler),col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp0.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 0',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp0,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp1.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp1,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 1',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp1,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp2.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp2,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 2',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp2,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp3.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(I1Hyp3,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 3',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp3,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp4.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(I1Hyp4,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 4',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp4,col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgMSCntsTimeTrace.pdf", onefile=F, height=4.3, width=4.3 )
+> 
+> plot(log10(I1ExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='Log10(Expected MS Counts)',
++ main='Data (.)',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(log10(I2ExpMSCnts),col="red")
+> dev.off()
+null device 
+          1 
+> 
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileImgDat1 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat1 <- read.table(infileImgDat1, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I1Iter <- ImgDat1[[1]]
+> I1LogProb <- ImgDat1[[2]]
+> I1ProbStep <- ImgDat1[[3]]
+> I1SpinRow <- ImgDat1[[4]]
+> I1SpinCol <- ImgDat1[[5]]
+> I1Hyp0 <- ImgDat1[[6]]
+> I1Hyp1 <- ImgDat1[[7]]
+> I1Hyp2 <- ImgDat1[[8]]
+> I1Hyp3 <- ImgDat1[[9]]
+> I1Hyp4 <- ImgDat1[[10]]
+> I1ExpMSCnts <- ImgDat1[[11]]
+> 
+> 
+> infileImgDat2 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd_2.param'
+> 
+> ImgDat2 <- read.table(infileImgDat2, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I2Iter <- ImgDat2[[1]]
+> I2LogProb <- ImgDat2[[2]]
+> I2ProbStep <- ImgDat2[[3]]
+> I2SpinRow <- ImgDat2[[4]]
+> I2SpinCol <- ImgDat2[[5]]
+> I2Hyp0 <- ImgDat2[[6]]
+> I2Hyp1 <- ImgDat2[[7]]
+> I2Hyp2 <- ImgDat2[[8]]
+> I2Hyp3 <- ImgDat2[[9]]
+> I2Hyp4 <- ImgDat2[[10]]
+> I2ExpMSCnts <- ImgDat2[[11]]
+> 
+> 
+> xrangeImg <- numeric(2)
+> yrangeImg <- numeric(2)
+> xrangeImg[1] = 0.
+> xrangeImg[2] = 0.4
+> yrangeImg[1] = 0.
+> yrangeImg[2] = 0.4
+> 
+> 
+> rangeLog10MSCnts <- numeric(2)
+> rangeLog10MSCnts[1] = 2.2
+> rangeLog10MSCnts[2] = 3.4
+> 
+> ## No Background for this one:
+> #rangeLog10BkgScale <- numeric(2)
+> #rangeLog10BkgScale[1] = 0.38
+> #rangeLog10BkgScale[2] = 0.42
+> 
+> rangeLog10Prob <- numeric(2)
+> rangeLog10Prob[1] = -800.
+> rangeLog10Prob[2] = -600.
+> 
+> ## Each trace or 'time-series' (statistics jargon) plot
+> ## 
+> 
+> pdf("ImgLogProb.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((I1LogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab=' Log10 Post Prob',
++ ylim=rangeLog10Prob,
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines((I2LogProb*log10euler),col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File: NOTICE THIS ONE IS OVER-PLOTTED:# 
+> 
+> pdf("ImgLogProb_1_2.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((I1LogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab=' Log10 Post Prob',
++ ylim=rangeLog10Prob,
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines((I2LogProb*log10euler),col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp0.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 0',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp0,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp0_1_2.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 0',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp0,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp1.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp1,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 1',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp1,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp2.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp2,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 2',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp2,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp3.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> 
+> plot(I1Hyp3,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 3',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp3,col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgHyp4.pdf", onefile=FALSE, height=4.3, width=4.3 )
+> 
+> plot(I1Hyp4,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 4',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp4,col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgMSCntsTimeTrace.pdf", onefile=F, height=4.3, width=4.3 )
+> 
+> plot(log10(I1ExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='Log10(Expected MS Counts)',
++ main='Data (.)',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(log10(I2ExpMSCnts),col="red")
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> pdf("ImgMSCntsTimeTrace_1_2.pdf", onefile=F, height=4.3, width=4.3 )
+> 
+> plot(log10(I1ExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='Log10(Expected MS Counts)',
++ main='Data (.)',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(log10(I2ExpMSCnts),col="red")
+> dev.off()
+null device 
+          1 
+> 
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileImgDat1 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat1 <- read.table(infileImgDat1, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I1Iter <- ImgDat1[[1]]
+> I1LogProb <- ImgDat1[[2]]
+> I1ProbStep <- ImgDat1[[3]]
+> I1SpinRow <- ImgDat1[[4]]
+> I1SpinCol <- ImgDat1[[5]]
+> I1Hyp0 <- ImgDat1[[6]]
+> I1Hyp1 <- ImgDat1[[7]]
+> I1Hyp2 <- ImgDat1[[8]]
+> I1Hyp3 <- ImgDat1[[9]]
+> I1Hyp4 <- ImgDat1[[10]]
+> I1ExpMSCnts <- ImgDat1[[11]]
+> 
+> 
+> infileImgDat2 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd_2.param'
+> 
+> ImgDat2 <- read.table(infileImgDat2, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I2Iter <- ImgDat2[[1]]
+> I2LogProb <- ImgDat2[[2]]
+> I2ProbStep <- ImgDat2[[3]]
+> I2SpinRow <- ImgDat2[[4]]
+> I2SpinCol <- ImgDat2[[5]]
+> I2Hyp0 <- ImgDat2[[6]]
+> I2Hyp1 <- ImgDat2[[7]]
+> I2Hyp2 <- ImgDat2[[8]]
+> I2Hyp3 <- ImgDat2[[9]]
+> I2Hyp4 <- ImgDat2[[10]]
+> I2ExpMSCnts <- ImgDat2[[11]]
+> 
+> 
+> xrangeImg <- numeric(2)
+> yrangeImg <- numeric(2)
+> xrangeImg[1] = 0.
+> xrangeImg[2] = 0.4
+> yrangeImg[1] = 0.
+> yrangeImg[2] = 0.4
+> 
+> 
+> rangeLog10MSCnts <- numeric(2)
+> rangeLog10MSCnts[1] = 2.2
+> rangeLog10MSCnts[2] = 3.4
+> 
+> ## No Background for this one:
+> #rangeLog10BkgScale <- numeric(2)
+> #rangeLog10BkgScale[1] = 0.38
+> #rangeLog10BkgScale[2] = 0.42
+> 
+> rangeLog10Prob <- numeric(2)
+> rangeLog10Prob[1] = -800.
+> rangeLog10Prob[2] = -600.
+> 
+> ## Each trace or 'time-series' (statistics jargon) plot
+> ## 
+> 
+> png("ImgLogProb.pdf", height=320, width=320, units="px" )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((I1LogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab=' Log10 Post Prob',
++ ylim=rangeLog10Prob,
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines((I2LogProb*log10euler),col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File: NOTICE THIS ONE IS OVER-PLOTTED:# 
+> 
+> png("ImgLogProb_1_2.pdf", height=320, width=320, units="px" )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((I1LogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab=' Log10 Post Prob',
++ ylim=rangeLog10Prob,
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines((I2LogProb*log10euler),col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp0.pdf", height=320, width=320, units="px" )
+> 
+> plot(I1Hyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 0',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp0,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp0_1_2.pdf", height=320, width=320, units="px" )
+> 
+> plot(I1Hyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 0',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp0,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp1.pdf", height=320, width=320, units="px" )
+> 
+> plot(I1Hyp1,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 1',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp1,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp2.pdf", height=320, width=320, units="px" )
+> 
+> plot(I1Hyp2,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 2',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp2,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp3.pdf", height=320, width=320, units="px" )
+> 
+> 
+> plot(I1Hyp3,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 3',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp3,col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp4.pdf", height=320, width=320, units="px" )
+> 
+> plot(I1Hyp4,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 4',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp4,col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgMSCntsTimeTrace.pdf", height=320, width=320, units="px" )
+> 
+> plot(log10(I1ExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='Log10(Expected MS Counts)',
++ main='Data (.)',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(log10(I2ExpMSCnts),col="red")
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgMSCntsTimeTrace_1_2.pdf", height=320, width=320, units="px" )
+> 
+> plot(log10(I1ExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='Log10(Expected MS Counts)',
++ main='Data (.)',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(log10(I2ExpMSCnts),col="red")
+> dev.off()
+null device 
+          1 
+> 
+
+R version 2.7.0 (2008-04-22)
+Copyright (C) 2008 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ##
+> #####    Making and pdf files of the specified data
+> ##
+> 
+> 
+> infileImgDat1 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd.param'
+> 
+> ImgDat1 <- read.table(infileImgDat1, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I1Iter <- ImgDat1[[1]]
+> I1LogProb <- ImgDat1[[2]]
+> I1ProbStep <- ImgDat1[[3]]
+> I1SpinRow <- ImgDat1[[4]]
+> I1SpinCol <- ImgDat1[[5]]
+> I1Hyp0 <- ImgDat1[[6]]
+> I1Hyp1 <- ImgDat1[[7]]
+> I1Hyp2 <- ImgDat1[[8]]
+> I1Hyp3 <- ImgDat1[[9]]
+> I1Hyp4 <- ImgDat1[[10]]
+> I1ExpMSCnts <- ImgDat1[[11]]
+> 
+> 
+> infileImgDat2 = '../outputs/PoisDatons32x32EEMC2_NoBckgrnd_2.param'
+> 
+> ImgDat2 <- read.table(infileImgDat2, header = TRUE, sep = "", quote = "\"'",
++            na.strings = "NA", colClasses = NA, nrows = -1,
++            skip = 0, check.names = TRUE,
++            comment.char = "#",
++            allowEscapes = FALSE, flush = FALSE,
++            encoding = "unknown")
+> 
+> I2Iter <- ImgDat2[[1]]
+> I2LogProb <- ImgDat2[[2]]
+> I2ProbStep <- ImgDat2[[3]]
+> I2SpinRow <- ImgDat2[[4]]
+> I2SpinCol <- ImgDat2[[5]]
+> I2Hyp0 <- ImgDat2[[6]]
+> I2Hyp1 <- ImgDat2[[7]]
+> I2Hyp2 <- ImgDat2[[8]]
+> I2Hyp3 <- ImgDat2[[9]]
+> I2Hyp4 <- ImgDat2[[10]]
+> I2ExpMSCnts <- ImgDat2[[11]]
+> 
+> 
+> xrangeImg <- numeric(2)
+> yrangeImg <- numeric(2)
+> xrangeImg[1] = 0.
+> xrangeImg[2] = 0.4
+> yrangeImg[1] = 0.
+> yrangeImg[2] = 0.4
+> 
+> 
+> rangeLog10MSCnts <- numeric(2)
+> rangeLog10MSCnts[1] = 2.2
+> rangeLog10MSCnts[2] = 3.4
+> 
+> ## No Background for this one:
+> #rangeLog10BkgScale <- numeric(2)
+> #rangeLog10BkgScale[1] = 0.38
+> #rangeLog10BkgScale[2] = 0.42
+> 
+> rangeLog10Prob <- numeric(2)
+> rangeLog10Prob[1] = -800.
+> rangeLog10Prob[2] = -600.
+> 
+> ## Each trace or 'time-series' (statistics jargon) plot
+> ## 
+> 
+> png("ImgLogProb.png", height=320, width=320, units="px" )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((I1LogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab=' Log10 Post Prob',
++ ylim=rangeLog10Prob,
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines((I2LogProb*log10euler),col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File: NOTICE THIS ONE IS OVER-PLOTTED:# 
+> 
+> png("ImgLogProb_1_2.png", height=320, width=320, units="px" )
+> 
+> log10euler = log10(exp(1.000000000000))
+> 
+> plot((I1LogProb*log10euler),type="o",
++ xlab='Iteration Number',
++ ylab=' Log10 Post Prob',
++ ylim=rangeLog10Prob,
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines((I2LogProb*log10euler),col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp0.png", height=320, width=320, units="px" )
+> 
+> plot(I1Hyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 0',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp0,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp0_1_2.png", height=320, width=320, units="px" )
+> 
+> plot(I1Hyp0,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 0',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(I2Hyp0,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp1.png", height=320, width=320, units="px" )
+> 
+> plot(I1Hyp1,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 1',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp1,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp2.png", height=320, width=320, units="px" )
+> 
+> plot(I1Hyp2,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 2',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp2,col="red")
+> 
+> 
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp3.png", height=320, width=320, units="px" )
+> 
+> 
+> plot(I1Hyp3,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 3',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp3,col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgHyp4.png", height=320, width=320, units="px" )
+> 
+> plot(I1Hyp4,type="o",
++ xlab='Iteration Number',
++ ylab='Smoothing Hyper-Param 4',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(I2Hyp4,col="red")
+> 
+> dev.off()
+null device 
+          1 
+> 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgMSCntsTimeTrace.png", height=320, width=320, units="px" )
+> 
+> plot(log10(I1ExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='Log10(Expected MS Counts)',
++ main='Data (.)',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> #lines(log10(I2ExpMSCnts),col="red")
+> dev.off()
+null device 
+          1 
+> 
+> ## Next File:
+> ##
+> 
+> png("ImgMSCntsTimeTrace_1_2.png", height=320, width=320, units="px" )
+> 
+> plot(log10(I1ExpMSCnts),type="o",
++ xlab='Iteration Number',
++ ylab='Log10(Expected MS Counts)',
++ main='Data (.)',
++ pch='.',col="blue",
++ cex.main=1.4,cex.lab=1.4)
+> lines(log10(I2ExpMSCnts),col="red")
+> dev.off()
+null device 
+          1 
+> 

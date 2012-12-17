@@ -11,12 +11,16 @@ Step 1: setting up the ssh keys
 (see https://help.github.com/articles/generating-ssh-keys )
 
 cd ~/.ssh
-ssh-keygen -t rsa -C "<your_email@must_match_the_one_you_gave_to_github">
+ssh-keygen -t rsa -C "your_email@must_match_the_one_you_gave_to_github"
 
 	give it an easily remembered passphrase
 
 pbcopy < ./id_rsa.pub
 	(this only works on Macs)
+
+	This makes a copy into a buffer which you just paste (Command-V on MAC) 
+	into the Key window on the web page in Step 2.
+	(only on Mac OS X)
 
 Step 2: add the ssh key to github
 
@@ -31,6 +35,8 @@ cd /path/to/where/you/want/the/LIRA/repository/
 git clone git@github.com:vkashyap/LIRA.git
 
 	this will download everything there is on the github repository
+	and will put everything into the subdirectory
+	/path/to/where/you/want/the/LIRA/repository/LIRA/
 
 Step 4: using the repository
 

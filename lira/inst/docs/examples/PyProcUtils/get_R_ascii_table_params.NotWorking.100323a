@@ -1,0 +1,61 @@
+from numpy import *
+import pyfits
+
+def get_Rfile_ascii_table_params( InRTxtFileName, \
+    header = True, sep=' ', nrows=-1, skip=0, comment_char = "#" ):
+
+    ## Initialize handy variables:
+
+    ##  Read in file into one long string:
+    image_in = open(InRTxtFileName,'r')
+
+
+    ##  Get header and number of variables, to start, following R-form:
+    if( header) :
+        nowskip = skip
+        header_line = image_in[nowskip:]
+        while (headerline[0] == comment_char):
+            nowskip += 1
+            header_line = image_in[nowskip:]
+        ichar, linelen = nowskip, len(header_line)
+        header_string_vec = header_line.split(sep)
+        num_of_cols = len(header_string_vec)+1
+        print '\n** get_Rfile_ascii_table_params: number of columns:', num_of_cols,
+        print 'from header line:\n', header_string_vec
+        print
+    else:
+        nowskip = 0
+        test_string_vec = image_in[nowskip]
+        num_of_cols = len(test_string_vec)
+        header_string_vec = num_of_cols*['',]
+        print '\n** get_Rfile_ascii_table_params: number of columns:', num_of_cols,
+        print 'from 1st line:\n', test_string_vec
+        print
+
+    ##  Parse it line-by-line, following "R" format:
+    lline = -1
+    OutTable = []
+    while (nrows < 0 or lline < nrows):
+        for this_line in image_in[nowskip:] :
+            if (headerline[0] != comment_char):
+                line_nums_vec = this_line.split(sep)
+                #
+                if( num_of_cols != len(line_nums_vec) ):
+                    print 'Fatal get_Rfile_ascii_table_params error.'
+                    print 'First line indicated ', num_of_cols,' columns. '
+                    print
+                    raise TypeError
+                #
+                # Turning the string list into a numbers list:
+                nums_vec = []
+                for icol in range(num_of_cols):
+                    nums_vec.append( float(line_nums_vec[icol]) )
+                #
+                nowskip += 1
+                lline += 1
+                OutTable.append(nums_vec)
+            #end-if-not-comment
+        #end-for-this_line
+    #end while-not-too-long
+
+    return OutTable
