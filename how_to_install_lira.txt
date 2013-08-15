@@ -13,7 +13,9 @@ Now build the LIRA package and install it in your R library.
 	R CMD INSTALL lira_0.1.tar.gz Rlira
 (I don't know if it is necessary to call it Rlira.  I did, and it worked, and I have no wish to experiment with a working installation!)
 
-That's it.  You can start up R and do
+That's it.
+(Note that it will be installed in your ~/Library/, so won't be available globally.)
+You can now start up R and do
 	require(lira)
 and lira() will be available.
 
