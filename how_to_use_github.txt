@@ -1,6 +1,9 @@
 Setting up the LIRA repository
 [vlk 2012aug07, with major help from Tom A]
 
+/* NEED TO DO STEPS 0-3 THE FIRST TIME SETTING UP THE GITHUB REPOSITORY */
+/* STEP 4 LISTS SOME COMMON TASKS YOU CAN DO REPEATEDLY AFTER SETTING IT UP */
+
 Step 0: get a github account
 
 http://github.com
