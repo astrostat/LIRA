@@ -41,7 +41,13 @@ git clone git@github.com:vkashyap/LIRA.git
 	and will put everything into the subdirectory
 	/path/to/where/you/want/the/LIRA/repository/LIRA/
 
+
+/* At this point you have successfully downloaded the LIRA repository to your local machine */
+/* The following are steps you might use repeatedly as you edit and update LIRA */
+
 Step 4: using the repository
+
+	You must always cd to the location of the repository for these commands to work
 
 git pull
 	will download the latest changes
