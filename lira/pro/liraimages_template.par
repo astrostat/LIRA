@@ -1,0 +1,94 @@
+;+
+;script	liraimages_template
+;	reads in LIRA inputs and outputs into a structure and makes nice plots
+;
+;	Note: The first half defines the locations of the inputs and outputs.
+;	To add more sets,
+;		edit this template to add extra d#<variables>,
+;		then duplicate the calls to lira#=rd_liraout(...) in the second half,
+;		and finally invoke liraimages with the extra lira# parameters
+;
+;vinay k (2013jul)
+;-
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;    EDIT THIS PART TO ENSURE THAT ALL THE RELEVANT PROCEDURES ARE IN YOUR !PATH
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;	this file uploads all needed routines (compiled with IDLv7)
+restore,'/data/susfu/kashyap/LIRA/lira/pro/idl_lira.sav'
+;	alternately, you can ensure that the !path contains the procedures, as below
+if strpos(!path,'fubar/SCAR/pro') lt 0 then !path=expand_path(':+/data/fubar/SCAR/pro') + ':' + !path
+if strpos(!path,'fubar/idl/coyote') lt 0 then !path='/data/fubar/idl/coyote:'+!path
+.compile /data/fubar/kashyap/AstroStat/LIRA/pro/rd_liraout.pro
+.compile /data/fubar/kashyap/AstroStat/LIRA/pro/liraimages.pro
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;    EDIT TO SPECIFY THE CORRECT LOCATIONS OF ALL THE INPUTS AND OUTPUTS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;	root name for plots and fits files
+outroot='prefix_for_output_files'
+
+;	where the data files are located
+d1datdir='/data/hea-intern10/lira_new/gb1508/'
+d2datdir='/data/hea-intern10/lira_new/gb1508/'
+
+;	where the output files are located
+d1outputsdir='/data/hea-intern10/lira_new/outputsFinal/gb1508/'
+d2outputsdir='/data/hea-intern10/lira_new/outputsFinal/gb1508/'
+
+;	baseline model
+d1basefile='null_model_g1+c1.fits'
+d2basefile='null_model_g1+c1.fits'
+
+;	psf
+d1psffile='psf_center_33x33_0.5.fits'
+d2psffile='psf_center_33x33_0.5.fits'
+
+;	data
+d1datafile='gb1508_box64_0.5_none.fits'
+d2datafile='gb1508_box64_0.5_none.fits'
+
+;	parameter traces
+d1paramfile='gb1508_float_def_gb1508_box64_0.param'
+d2paramfile='gb1508_fixed_def_gb1508_box64_0.param'
+
+;	iteration images
+d1iterimgfile='gb1508_float_def_gb1508_box64_0.out'
+d2iterimgfile='gb1508_fixed_def_gb1508_box64_0.out'
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;    EDIT IF NECESSARY TO INCLUDE EXTRA CALLS TO RD_LIRAOUT
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+peasecolr & loadct,4
+peasecolr & loadct,4
+
+if not keyword_set(verbose) then verbose=11
+
+lira1=rd_liraout( $
+	iterimgfile=d1iterimgfile,$
+	paramfile=d1paramfile,$
+	datafile=d1datafile,$
+	basefile=d1basefile,$
+	psffile=d1psffile,$
+	datdir=d1datdir,$
+	outputsdir=d1outputsdir,$
+	verbose=verbose)
+
+lira2=rd_liraout( $
+	iterimgfile=d2iterimgfile,$
+	paramfile=d2paramfile,$
+	datafile=d2datafile,$
+	basefile=d2basefile,$
+	psffile=d2psffile,$
+	datdir=d2datdir,$
+	outputsdir=d2outputsdir,$
+	verbose=verbose)
+
+liraimages,lira1,lira2,outroot=outroot
+
+spawn,'ls -l '+outroot+'*'
+
+help,lira1,lira2
