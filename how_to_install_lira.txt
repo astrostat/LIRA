@@ -7,12 +7,13 @@ Instead, copy lira to a new directory --
 	cp -rp /soft/LIRA.git/lira /soft/LIRA.install/.
 
 Now build the LIRA package and install it in your R library.
-(These instructions should work for R versions 3+ and on Mac OS X.7+)
+(These instructions should work for R versions 3+ and on Mac OS X.7+ and on latest CentOS)
 	cd /soft/LIRA.install
 	mv lira/inst .
 		#because lira/inst/ only contains documentation and examples which are unnecessary to run the package
 	R CMD BUILD lira
 		#this will produce a tar file, which is used in the next step
+		#on CentOS systems you may need to use lower-case for "build"
 	R CMD INSTALL lira_0.1.tar.gz Rlira
 		#I (VK) don't know if it is necessary to call it Rlira.  I did,
 		#and it worked, and I have no wish to experiment with a working installation!
