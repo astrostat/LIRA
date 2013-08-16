@@ -35,11 +35,14 @@
 ;		  OUTROOT_##_avgmscomp : ps or jpg of the average multiscale component
 ;		  OUTROOT_##_snr : ps or jpg of the S/N map
 ;		  
-;subroutines
-;	input must be read in using RD_LIRAOUT()
-;	requires Coyote Library routines
+;restrictions
+;	- input must have been read in using RD_LIRAOUT()
+;	- uses Coyote Library routines
 ;	  CGDISPLAY, CGLOADCT, CGIMAGE, CGCONLEVELS, CGCONTOUR
-;	and associated subroutines
+;	  and associated subroutines.  You can get these routines from
+;	  http://www.idlcoyote.com/documents/programs.php#COYOTE_LIBRARY_DOWNLOAD
+;	- uses the FITS I/O routines from IDL-Astro.  You can get them from
+;	  http://idlastro.gsfc.nasa.gov
 ;
 ;history
 ;	vinay kashyap (2013jul)

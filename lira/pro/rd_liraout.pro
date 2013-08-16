@@ -38,6 +38,10 @@ function rd_liraout,iterimgfile=iterimgfile,paramfile=paramfile,$
 ;	help     	prints calling sequence and exits
 ;	verbose 	controls chatter
 ;
+;restrictions
+;	- uses the FITS I/O routines from IDL-Astro.  You can get them from
+;	  http://idlastro.gsfc.nasa.gov
+;
 ;history
 ;	vinay kashyap (2013jul)
 ;-
