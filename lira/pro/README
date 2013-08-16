@@ -1,0 +1,13 @@
+This directory contains IDL routines to read in the outputs of LIRA and cast them into FITS files useful for postprocessing.
+
+rd_liraout.pro	-- which reads the LIRA outputs into an IDL structure
+liraimages.pro	-- which makes nice summary plots and writes out FITS files
+
+idl_lira.sav	-- The above routines need some programs from PINTofALE,
+		   IDL-Astro, and the Coyote library.  A compiled version
+		   of all the required routines are in this file.  Restore
+		   in IDL prior to running rd_liraout or liraimages.
+
+liraimages_template.par
+		-- this is a script designed to call rd_liraout and
+		   liraimages.  Modify to suit your needs.
