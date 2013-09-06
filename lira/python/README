@@ -1,0 +1,16 @@
+
+Python scripts to help create input images to LIRA. All scripts 
+require CIAO4.5 including contrib scripts -  http://cxc.harvard.edu/ciao/
+
+Simulation script requires Sherpa for image fitting part:
+http://cxc.harvard.edu/sherpa/
+
+
+
+rebin_img.py  - a function to make an image with the center pixel 
+	       located at the region centroid
+make_img.py   - example script showing the usage of rebin_img.py
+rebin_psf.py  - a function to rebin psf file to match the binning and the centroid
+	      of the image.
+sim_image.py  - simulations to generate images of the data based on the null model
+	      
