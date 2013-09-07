@@ -63,6 +63,7 @@ def sim_image(infile='img_64x64_0.5.fits', \
 	    ##fit to the fake data
 	    #fit()
 	    ##here print out the new best-fit params if you wish
+	    ##(must figure out syntax of parameter values and print out to file)
 	    ##save the new best-fit model as the baseline model to use in LIRA
 	    #save_source("sim_baseline_{}.fits",format(i), clobber=True)
 	    ##VK}
