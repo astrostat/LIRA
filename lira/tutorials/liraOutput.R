@@ -1,7 +1,7 @@
 require(lira)
 require(FITSio)
 
-liraOutput<-function(obsFile,startFile=FALSE,mapFile=F, bkgFile=FALSE,psfFile=FALSE,fit.bkg.scale=T,outDir='/data/reu/kmckeough/KM_lira/outputs/',maxIter,alpha.init,thin=0,burn=0){
+liraOutput<-function(obsFile,startFile=FALSE,mapFile=F, bkgFile=FALSE,psfFile=FALSE,fit.bkg.scale=T,outDir='/data/reu/kmckeough/KM_lira/outputs/',maxIter,alpha.init,thin=1,burn=0){
 
 #INPUTS:
 	#obsFile   - string;a 2^n x 2^n matrix which you would like to
@@ -14,6 +14,8 @@ liraOutput<-function(obsFile,startFile=FALSE,mapFile=F, bkgFile=FALSE,psfFile=FA
 	#maxIter   - lira() input; the maximum number of iterations
 	#alpha.init- set smoothing parameters (higher=more smoothing)
 	#WARNING: Other inputs specific to lira must be coded into script below
+
+	#NOTE: set thin=1 to avoid floating point exception and subsequent crash on Mac OS X
 
 #OUTPUTS:
 	#.out
