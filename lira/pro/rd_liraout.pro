@@ -27,14 +27,18 @@ function rd_liraout,iterimgfile=iterimgfile,paramfile=paramfile,$
 ;			  if not, it is prepended.
 ;	datafile 	name of file that contains data that LIRA operates on
 ;	basefile	name of file that contains baseline model that LIRA uses
+;			* explicitly set to "NONE" to avoid reading in anything
+;			  and a flat background if height 1 is used as placeholder
 ;	psffile 	name of file that contains the PSF
+;			* explicitly set to "NONE" to avoid reading in anything
+;			  and a delta-function is used as placeholder
 ;			* DATAFILE, BASEFILE, and PSFFILE could have full
 ;			  pathnames.  if they do, DATDIR is ignored.
 ;			  if not, it is prepended
 ;	datdir  	directory that contains DATAFILE, BASEFILE, PSFFILE
-;			* default is '/data/hea-intern10/lira_new/'
+;			* default is $cwd
 ;	outputsdir	directory that contains ITERIMGFILE and PARAMFILE
-;			* default is '/data/hea-intern10/lira_new/'
+;			* default is $cwd
 ;	help     	prints calling sequence and exits
 ;	verbose 	controls chatter
 ;
@@ -44,6 +48,7 @@ function rd_liraout,iterimgfile=iterimgfile,paramfile=paramfile,$
 ;
 ;history
 ;	vinay kashyap (2013jul)
+;	allow BASEFILE and PSFFILE to be "NONE" (VK; 2017feb)
 ;-
 
 if keyword_set(help) then begin
@@ -57,8 +62,8 @@ endif
 ;	inputs
 vv=0L & if keyword_set(verbose) then vv=long(verbose[0])>1L
 
-;if not keyword_set(datdir) then dirdat=getenv('PWD') else begin
-if not keyword_set(datdir) then dirdat='/data/hea-intern10/lira_new/' else begin
+if not keyword_set(datdir) then dirdat=getenv('PWD') else begin
+;if not keyword_set(datdir) then dirdat='/data/hea-intern10/lira_new/' else begin
   dirdat=strtrim(datdir,2)
   c1=strmid(dirdat,0,1)
   if c1 eq '' or c1 eq '-' or c1 eq '?' then dirdat=dialog_pickfile(/directory,title='Select DATDIR')
@@ -69,8 +74,8 @@ if not keyword_set(datdir) then dirdat='/data/hea-intern10/lira_new/' else begin
 endelse
 if vv gt 0 then print,'DATDIR = '+dirdat
 
-;if not keyword_set(outputsdir) then diroutputs=getenv('PWD') else begin
-if not keyword_set(outputsdir) then diroutputs='data/hea-intern10/lira_new/' else begin
+if not keyword_set(outputsdir) then diroutputs=getenv('PWD') else begin
+;if not keyword_set(outputsdir) then diroutputs='data/hea-intern10/lira_new/' else begin
   diroutputs=strtrim(outputsdir,2)
   c1=strmid(diroutputs,0,1)
   if c1 eq '' or c1 eq '-' or c1 eq '?' then diroutputs=dialog_pickfile(/directory,title='Select OUTPUTSDIR')
@@ -127,7 +132,7 @@ filbase=''
 if keyword_set(basefile) then begin
   c1=strmid(strtrim(basefile[0],2),0,1)
   if c1 eq '.' or c1 eq '/' then filbase=strtrim(basefile[0],2) else begin
-    filbase=filepath(strtrim(basefile[0],2),root_dir=dirdat)
+    if strupcase(strtrim(basefile[0],2)) ne 'NONE' then filbase=filepath(strtrim(basefile[0],2),root_dir=dirdat) else filbase='NONE'
     if c1 eq '' or c1 eq '-' or c1 eq '?' then filbase=''
   endelse
 endif
@@ -141,7 +146,7 @@ filpsf=''
 if keyword_set(psffile) then begin
   c1=strmid(strtrim(psffile[0],2),0,1)
   if c1 eq '.' or c1 eq '/' then filpsf=strtrim(psffile[0],2) else begin
-    filpsf=filepath(strtrim(psffile[0],2),root_dir=dirdat)
+    if strupcase(strtrim(psffile[0],2)) ne 'NONE' then filpsf=filepath(strtrim(psffile[0],2),root_dir=dirdat) else filpsf='NONE'
     if c1 eq '' or c1 eq '-' or c1 eq '?' then filpsf=''
   endelse
 endif
@@ -170,13 +175,15 @@ if vv gt 10 then begin
   if !d.name eq 'X' then window,0,xsize=512,ysize=512,title='DATA'
   tvscl,rebin(alog10(dataimg>0.1),512,512)
 endif
-baseimg=mrdfits(filbase,0,hbas)
+if strupcase(filbase) ne 'NONE' then baseimg=mrdfits(filbase,0,hbas) else baseimg=0.*dataimg+1.0
 if not keyword_set(baseimg) then message,'BASEFILE: '+filbase+' not read'
 if vv gt 10 then begin
   if !d.name eq 'X' then window,1,xsize=512,ysize=512,title='BASELINE'
   tvscl,rebin(alog10(baseimg>(0.001*max(baseimg))),512,512)
 endif
-psfimg=mrdfits(filpsf,0,hpsf)
+if strupcase(filpsf) ne 'NONE' then psfimg=mrdfits(filpsf,0,hpsf) else begin
+  psfimg=fltarr(2*(nx/2)+1,2*(ny/2)+1) & psfimg[nx/2,ny/2]=1.	;delta function by default
+endelse
 szp=size(psfimg) & mx=szp[1] & my=szp[2]
 if not keyword_set(psfimg) then message,'PSFFILE: '+filpsf+' not read'
 if vv gt 10 then begin
