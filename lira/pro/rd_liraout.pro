@@ -216,17 +216,19 @@ endif
 ;	images
 iterimg=dblarr(nx,ny,niter)
 openr,uit,filiterimg,/get_lun & readf,uit,iterimg & close,uit & free_lun,uit
+;
+avimg=total(iterimg,3)/float(niter)
+sdimg=0.*avimg
+for ix=0L,nx-1L do for iy=0L,ny-1L do $
+  sdimg[ix,iy]=stddev(iterimg[ix,iy,*],/nan)
+o0=where(sdimg gt 0,mo0) & if mo0 gt 0 then sdmin=min(sdimg[o0]) else sdmin=0.
+snrimg=avimg/(sdimg>sdmin)
+;
 if vv gt 5 then begin
   if !d.name eq 'X' then window,4,xsize=512,ysize=512,title='ITERIMG'
-  avimg=total(iterimg,3)/float(niter)
   tvscl,rebin(alog10(avimg>(1e-4*max(avimg))),512,512)
 
   if !d.name eq 'X' then window,5,xsize=512,ysize=512,title='SNR'
-  sdimg=0.*avimg
-  for ix=0L,nx-1L do for iy=0L,ny-1L do $
-  	sdimg[ix,iy]=stddev(iterimg[ix,iy,*],/nan)
-  o0=where(sdimg gt 0,mo0) & if mo0 gt 0 then sdmin=min(sdimg[o0]) else sdmin=0.
-  snrimg=avimg/(sdimg>sdmin)
   tvscl,rebin(snrimg,512,512)
 
 endif
