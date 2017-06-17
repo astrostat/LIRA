@@ -15,8 +15,12 @@ Now build the LIRA package and install it in your R library.
 		#this will produce a tar file, which is used in the next step
 		#on CentOS systems you may need to use lower-case for "build"
 	R CMD INSTALL lira_0.1.tar.gz Rlira
-		#I (VK) don't know if it is necessary to call it Rlira.  I did,
-		#and it worked, and I have no wish to experiment with a working installation!
+		#I (VK) don't know if it is necessary to call it Rlira.
+		#I did, and it worked, and I have no wish to experiment with a working installation!
+
+		#NOTE: R looks in R_LIBS for the installed libraries.  Typically this is in ~/Library/R/library/.
+		#To force lira to be installed there, use
+		#	R CMD INSTALL --library=~/Library/R/library lira_0.1.tar.gz
 
 That's it.
 (Note that it will be installed in your ~/Library/, so won't be available globally.)
