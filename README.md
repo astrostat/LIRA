@@ -1,7 +1,7 @@
 LIRA
 ====
 
-Low-counts Image Reconstruction and Analysis, formerly EMC2
+Low-counts Image Reconstruction and Analysis
 
 Stein, N.M., van Dyk, D.A., Kashyap, V.L., & Siemiginowska, A., Detecting Unspecified Structure in Low-Count Images, 2015, ApJ, 813, 66
 
