@@ -19,7 +19,9 @@ function(obs.file = stop("obs.file must be specified"),
     alpha.init = stop("alpha.init must be specified"),
     ms.total.count.pr = 1,
     ms.total.count.exp = 0.05,
-    ms.alpha.kap2 = 1000)
+    ms.alpha.kap2 = 1000,
+    ms.alpha.kap1 = 0.0,
+    ms.alpha.kap3 = 3.0) #p(alpha) = alpha^kap1 * exp(-kap2 * alpha^kap3)
 {
     em = !mcmc
 
@@ -38,7 +40,7 @@ function(obs.file = stop("obs.file must be specified"),
         as.integer(ncol.psf), as.logical(em), as.logical(fit.bkg.scale),
         as.double(alpha.init), as.integer(length(alpha.init)),
         as.double(ms.total.count.pr), as.double(ms.total.count.exp),
-        as.double(ms.alpha.kap2), PACKAGE="lira")
+        as.double(ms.alpha.kap2),as.double(ms.alpha.kap1),as.double(ms.alpha.kap3), PACKAGE="lira")
 
     params <- read.table(param.file, header=TRUE)
 
