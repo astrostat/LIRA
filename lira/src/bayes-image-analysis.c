@@ -1657,8 +1657,8 @@ double lpost_alpha(double alpha, /* evaluate at alpha */
   } /* loop over rows of ms.ag[level] */
 
   /****************  ADD THE LOG PRIOR *************/
-  logpost -= (   ms->al_kap1 *log(alpha) 
-	       + ms->al_kap2 * pow( alpha, ms->al_kap3 ) );
+    logpost -= ( -ms->al_kap1 * log(ms->al_kap2)  +  ms->al_kap1 * log(alpha) 
+	        + ms->al_kap2 * pow( alpha, ms->al_kap3 ) );
 
   return(logpost);
 
@@ -1692,7 +1692,7 @@ double dlpost_alpha(double alpha, /* evaluate at alpha */
   } /* loop over rows of ms.ag[level] */
 
   /****************  ADD THE LOG PRIOR *************/
-  dlogpost -= (   ms->al_kap1 / alpha 
+  dlogpost -= (  - ms->al_kap1 / alpha 
 	       + ms->al_kap2 * ms->al_kap3 * pow( alpha, ms->al_kap3 - 1.0 ) );
 
   return(dlogpost);
@@ -1727,7 +1727,7 @@ double ddlpost_alpha(double alpha, /* evaluate at alpha */
   } /* loop over rows of ms.ag[level] */
 
    /****************  ADD THE LOG PRIOR *************/
-  ddlogpost += (   ms->al_kap1 / pow(alpha, 2.0) 
+  ddlogpost += ( -  ms->al_kap1 / pow(alpha, 2.0) 
 	       - ms->al_kap2 * ms->al_kap3 * (ms->al_kap3 - 1.0) 
 		   * pow( alpha, ms->al_kap3 - 2.0 ) );
   
