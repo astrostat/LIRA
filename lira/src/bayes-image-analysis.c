@@ -143,7 +143,7 @@ void initialize_control(controlType *cont, expmapType *expmap, psfType *psf,
            msType *ms, int *max_iter, int *burn, int *save_iters, int *save_thin, int *nrow, 
            int *ncol, int *nrow_psf, int *ncol_psf, int *em, int *fit_bkg_scl, 
            double *alpha_init, int *alpha_init_len, double *ms_ttlcnt_pr, 
-           double *ms_ttlcnt_exp, double *ms_al_kap2);
+           double *ms_ttlcnt_exp, double *ms_al_kap2,double *ms_al_kap1,double *ms_al_kap3);
 void read_psf(psfType *psf);
 void read_bkg(cntType *bkg);
 void read_data_or_image(int image, cntType *cnt);
@@ -203,7 +203,9 @@ void image_analysis_ascii(double *outmap, double *post_mean,
     int *alpha_init_len,
     double *ms_ttlcnt_pr,
     double *ms_ttlcnt_exp,
-    double *ms_al_kap2);
+    double *ms_al_kap2,
+    double *ms_al_kap1,
+    double *ms_al_kap3);
 void image_analysis_R(double *outmap,
     double *post_mean,
     double *cnt_vector,
@@ -227,7 +229,9 @@ void image_analysis_R(double *outmap,
     int *alpha_init_len,
     double *ms_ttlcnt_pr,
     double *ms_ttlcnt_exp,
-    double *ms_al_kap2);
+    double *ms_al_kap2,
+    double *ms_al_kap1,
+    double *ms_al_kap3);
 void bayes_image_analysis(double *outmap,
     double *post_mean,
     char *out_file_nm, 
@@ -359,7 +363,7 @@ void initialize_control(controlType *cont, expmapType *expmap, psfType *psf,
           msType *ms, int *max_iter, int *burn, int *save_iters, int *save_thin, int *nrow, 
           int *ncol, int *nrow_psf, int *ncol_psf, int *em, int *fit_bkg_scl, 
           double *alpha_init, int *alpha_init_len, double *ms_ttlcnt_pr, 
-          double *ms_ttlcnt_exp, double *ms_al_kap2) 
+          double *ms_ttlcnt_exp, double *ms_al_kap2,double *ms_al_kap1,double *ms_al_kap3) 
 {
   float ftemp;      /* temp float for file reading */
   int i,j;          /* index variables */
@@ -403,6 +407,16 @@ void initialize_control(controlType *cont, expmapType *expmap, psfType *psf,
     }
     if (ms_al_kap2 != NULL) {
       ms->al_kap2 = *ms_al_kap2;
+    }
+
+    ms->al_kap1=-42;
+    if (ms_al_kap1 != NULL){
+      ms->al_kap1 = *ms_al_kap1;
+    }
+
+    ms->al_kap3=-42;
+    if(ms_al_kap3 != NULL){
+      ms->al_kap3 = *ms_al_kap3;
     }
   }
   
@@ -599,8 +613,8 @@ void allocate_memory(psfType *psf, expmapType *expmap, cntType *obs,
     Rprintf("Gamma(%f, %f).\n", ms->ttlcnt_pr, ms->ttlcnt_exp);
 
     ms->fit_al = 1;                 /**** fit or fix alpha ****/
-    ms->al_kap1 = 0.0;              /**** the prior for alpha ****/
-    ms->al_kap3 = 3.0;
+    ms->al_kap1 = ms->al_kap1 == -42 ? 0.0 : ms->al_kap1;              /**** the prior for alpha ****/
+    ms->al_kap3 = ms->al_kap3 == -42 ? 3.0 : ms->al_kap3;
     Rprintf("\nThe hyper-prior smoothing parameter (kappa 2) is %g.\n\n",
 	   ms->al_kap2);
 
@@ -1643,8 +1657,8 @@ double lpost_alpha(double alpha, /* evaluate at alpha */
   } /* loop over rows of ms.ag[level] */
 
   /****************  ADD THE LOG PRIOR *************/
-  logpost -= (   ms->al_kap1 *log(alpha) 
-	       + ms->al_kap2 * pow( alpha, ms->al_kap3 ) );
+    logpost -= ( -ms->al_kap1 * log(ms->al_kap2)  +  ms->al_kap1 * log(alpha) 
+	        + ms->al_kap2 * pow( alpha, ms->al_kap3 ) );
 
   return(logpost);
 
@@ -1678,7 +1692,7 @@ double dlpost_alpha(double alpha, /* evaluate at alpha */
   } /* loop over rows of ms.ag[level] */
 
   /****************  ADD THE LOG PRIOR *************/
-  dlogpost -= (   ms->al_kap1 / alpha 
+  dlogpost -= (  - ms->al_kap1 / alpha 
 	       + ms->al_kap2 * ms->al_kap3 * pow( alpha, ms->al_kap3 - 1.0 ) );
 
   return(dlogpost);
@@ -1713,7 +1727,7 @@ double ddlpost_alpha(double alpha, /* evaluate at alpha */
   } /* loop over rows of ms.ag[level] */
 
    /****************  ADD THE LOG PRIOR *************/
-  ddlogpost += (   ms->al_kap1 / pow(alpha, 2.0) 
+  ddlogpost += ( -  ms->al_kap1 / pow(alpha, 2.0) 
 	       - ms->al_kap2 * ms->al_kap3 * (ms->al_kap3 - 1.0) 
 		   * pow( alpha, ms->al_kap3 - 2.0 ) );
   
@@ -1940,7 +1954,9 @@ void image_analysis_ascii(double *outmap,
   int *alpha_init_len,
   double *ms_ttlcnt_pr,
   double *ms_ttlcnt_exp,
-  double *ms_al_kap2)
+  double *ms_al_kap2,
+  double *ms_al_kap1,
+  double *ms_al_kap3)
 {
   controlType cont;         /* the control variables */
   psfType psf;              /* The psf */
@@ -2000,7 +2016,7 @@ void image_analysis_ascii(double *outmap,
   
   initialize_control(&cont, &expmap, &psf, &ms, max_iter, burn, save_iters, save_thin, 
     nrow, ncol, nrow_psf, ncol_psf, em, fit_bkg_scl, alpha_init, alpha_init_len,
-    ms_ttlcnt_pr, ms_ttlcnt_exp, ms_al_kap2);
+    ms_ttlcnt_pr, ms_ttlcnt_exp, ms_al_kap2,ms_al_kap1,ms_al_kap3);
   allocate_memory(&psf, &expmap, &obs, &deblur, &src, &bkg,
     &ms, &mrf, &bkg_scale, &cont);
   read_psf(&psf);
@@ -2057,7 +2073,9 @@ void image_analysis_R(double *outmap,
   int *alpha_init_len,
   double *ms_ttlcnt_pr,
   double *ms_ttlcnt_exp,
-  double *ms_al_kap2)
+  double *ms_al_kap2,
+  double *ms_al_kap1,
+  double *ms_al_kap3)
 {
   controlType cont;         /* the control variables */
   psfType psf;              /* The psf */
@@ -2076,7 +2094,7 @@ void image_analysis_R(double *outmap,
   
   initialize_control(&cont, &expmap, &psf, &ms, max_iter, burn, save_iters, save_thin, 
     nrow, ncol, nrow_psf, ncol_psf, em, fit_bkg_scl, alpha_init, alpha_init_len,
-    ms_ttlcnt_pr, ms_ttlcnt_exp, ms_al_kap2);
+    ms_ttlcnt_pr, ms_ttlcnt_exp, ms_al_kap2,ms_al_kap1,ms_al_kap3);
   allocate_memory(&psf, &expmap, &obs, &deblur, &src, &bkg,
     &ms, &mrf, &bkg_scale, &cont);
   set_psf_from_R(psf_vector, &psf);
