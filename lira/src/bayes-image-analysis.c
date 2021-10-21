@@ -1658,7 +1658,7 @@ double lpost_alpha(double alpha, /* evaluate at alpha */
   } /* loop over rows of ms.ag[level] */
 
   /****************  ADD THE LOG PRIOR *************/
-    logpost -= ( -ms->al_kap1 * log(ms->al_kap2)  +  ms->al_kap1 * log(alpha) 
+    logpost -= ( -ms->al_kap1 * log(ms->al_kap2)  -  ms->al_kap1 * log(alpha) 
 	        + ms->al_kap2 * pow( alpha, ms->al_kap3 ) );
 
   return(logpost);
