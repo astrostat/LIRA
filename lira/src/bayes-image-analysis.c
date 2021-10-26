@@ -15,6 +15,7 @@
 #define MH_iter 10         /* number of MH proposals per iteration */
 #define NR_END 1
 #define FREE_ARG char*
+#define PAR_NOT_SET -42
 
 /***************************************************************/
 /************************* DATA STRUCTURES *********************/
@@ -409,12 +410,12 @@ void initialize_control(controlType *cont, expmapType *expmap, psfType *psf,
       ms->al_kap2 = *ms_al_kap2;
     }
 
-    ms->al_kap1=-42;
+    ms->al_kap1=PAR_NOT_SET;
     if (ms_al_kap1 != NULL){
       ms->al_kap1 = *ms_al_kap1;
     }
 
-    ms->al_kap3=-42;
+    ms->al_kap3=PAR_NOT_SET;
     if(ms_al_kap3 != NULL){
       ms->al_kap3 = *ms_al_kap3;
     }
@@ -613,8 +614,8 @@ void allocate_memory(psfType *psf, expmapType *expmap, cntType *obs,
     Rprintf("Gamma(%f, %f).\n", ms->ttlcnt_pr, ms->ttlcnt_exp);
 
     ms->fit_al = 1;                 /**** fit or fix alpha ****/
-    ms->al_kap1 = ms->al_kap1 == -42 ? 0.0 : ms->al_kap1;              /**** the prior for alpha ****/
-    ms->al_kap3 = ms->al_kap3 == -42 ? 3.0 : ms->al_kap3;
+    ms->al_kap1 = ms->al_kap1 == PAR_NOT_SET ? 0.0 : ms->al_kap1;              /**** the prior for alpha ****/
+    ms->al_kap3 = ms->al_kap3 == PAR_NOT_SET ? 3.0 : ms->al_kap3;
     Rprintf("\nThe hyper-prior smoothing parameter (kappa 2) is %g.\n\n",
 	   ms->al_kap2);
 
@@ -1657,7 +1658,9 @@ double lpost_alpha(double alpha, /* evaluate at alpha */
   } /* loop over rows of ms.ag[level] */
 
   /****************  ADD THE LOG PRIOR *************/
-    logpost -= ( -ms->al_kap1 * log(ms->al_kap2)  +  ms->al_kap1 * log(alpha) 
+            //p(alpha) = (delta * alpha)^kap1 * exp(-delta/kap3 * alpha^kap3)
+            //The current parameterization uses kap2 = delta/kap3
+    logpost -= ( -ms->al_kap1 * log(ms->al_kap2 * ms->al_kap3)  -  ms->al_kap1 * log(alpha)
 	        + ms->al_kap2 * pow( alpha, ms->al_kap3 ) );
 
   return(logpost);
