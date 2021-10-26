@@ -1659,7 +1659,7 @@ double lpost_alpha(double alpha, /* evaluate at alpha */
 
   /****************  ADD THE LOG PRIOR *************/
             //p(alpha) = (delta * alpha)^kap1 * exp(-delta/kap3 * alpha^kap3)
-            //The current patameterization uses kap2 = delta/kap3
+            //The current parameterization uses kap2 = delta/kap3
     logpost -= ( -ms->al_kap1 * log(ms->al_kap2 * ms->al_kap3)  -  ms->al_kap1 * log(alpha)
 	        + ms->al_kap2 * pow( alpha, ms->al_kap3 ) );
 
